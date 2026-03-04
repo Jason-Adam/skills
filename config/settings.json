@@ -1,0 +1,18 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); cwd=$(echo \"$input\" | jq -r '.workspace.current_dir // empty'); [ -z \"$cwd\" ] && cwd=$(pwd); display_dir=\"${cwd/#$HOME/\\~}\"; git_info=\"\"; if git -C \"$cwd\" rev-parse --git-dir > /dev/null 2>&1; then branch=$(git -C \"$cwd\" symbolic-ref --short HEAD 2>/dev/null || git -C \"$cwd\" rev-parse --short HEAD 2>/dev/null); if [ -n \"$branch\" ]; then unstaged=\"\"; git -C \"$cwd\" diff --quiet 2>/dev/null || unstaged=$(printf '\\033[31m ●\\033[0m'); staged=\"\"; git -C \"$cwd\" diff --cached --quiet 2>/dev/null || staged=$(printf '\\033[31m +\\033[0m'); git_info=\" [${branch}${unstaged}${staged}]\"; fi; fi; echo \"${display_dir}${git_info}\""
+  },
+  "enabledPlugins": {
+    "github@claude-plugins-official": false,
+    "claude-md-management@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true
+  },
+  "skipDangerousModePermissionPrompt": true
+}
